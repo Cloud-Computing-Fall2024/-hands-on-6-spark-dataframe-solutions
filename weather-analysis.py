@@ -22,24 +22,34 @@ task4_best_days_output = output_dir + "task4_best_days.csv"
 task4_worst_days_output = output_dir + "task4_worst_days.csv"
 
 # ------------------------
-# Task 1: Descriptive Statistics for Weather Conditions
+# Task 1: Descriptive Statistics for Weather Conditions (Use Spark SQL)
 # ------------------------
 def task1_descriptive_stats(weather_df):
-    # TODO: Implement the code for Task 1: Basic Descriptive Statistics for Weather Conditions
-    # Calculate average, min, and max temperature for each location
-    desc_stats = weather_df.groupBy("Location") \
-        .agg(
-            avg("MaxTemp").alias("AvgMaxTemp"),
-            min("MaxTemp").alias("MinMaxTemp"),
-            max("MaxTemp").alias("MaxMaxTemp"),
-            avg("MinTemp").alias("AvgMinTemp"),
-            avg("Precipitation").alias("AvgPrecipitation"),
-            avg("WindSpeed").alias("AvgWindSpeed")
-        ).orderBy(col("AvgMaxTemp").desc())
+    # Register the DataFrame as a temporary SQL table
+    weather_df.createOrReplaceTempView("weather_data")
+
+    # TODO: Implement the SQL query for Task 1
+    # Example Spark SQL Query (students need to fill in the logic)
+    desc_stats_sql = """
+    SELECT Location, 
+           AVG(MaxTemp) AS AvgMaxTemp,
+           MIN(MaxTemp) AS MinMaxTemp,
+           MAX(MaxTemp) AS MaxMaxTemp,
+           AVG(MinTemp) AS AvgMinTemp,
+           AVG(Precipitation) AS AvgPrecipitation,
+           AVG(WindSpeed) AS AvgWindSpeed
+    FROM weather_data
+    GROUP BY Location
+    ORDER BY AvgMaxTemp DESC
+    """
+    
+    # Execute the SQL query and store the result in a DataFrame
+    desc_stats = spark.sql(desc_stats_sql)
 
     # Write the result to a CSV file
     desc_stats.write.csv(task1_output, header=True)
     print(f"Task 1 output written to {task1_output}")
+
 
 # ------------------------
 # Task 2: Identifying Extreme Weather Events

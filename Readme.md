@@ -22,13 +22,16 @@ The dataset contains historical weather data. Each record represents daily weath
 
 ### **Tasks:**
 
-#### **Task 1: Basic Descriptive Statistics for Weather Conditions**
-- **Objective**: Use Spark SQL and DataFrames to calculate basic descriptive statistics for the weather data.
+#### **Task 1: Descriptive Statistics for Weather Conditions (Use Spark SQL)**
+- **Objective**: Use Spark SQL to calculate basic descriptive statistics for the weather data.
 - **Instructions**:
-  - Calculate the average, minimum, and maximum **temperature** (both MaxTemp and MinTemp) for each location.
-  - Find the average **precipitation** and **wind speed** for each location.
-  - Sort the locations based on the average temperature in descending order.
+  - Register the weather_df DataFrame as a temporary SQL table.
+  - Write a SQL query to calculate:
+    - Average, minimum, and maximum temperature (both MaxTemp and MinTemp) for each location.
+    - Average precipitation and wind speed for each location.
+  - Sort the results by the average temperature in descending order.
 - **Expected Outcome**: A DataFrame that shows each location with its average temperature, precipitation, wind speed, and sorted by the hottest locations.
+- **Hint**: Use SQL queries like SELECT, GROUP BY, AVG(), MIN(), MAX(), and ORDER BY to achieve this task.
 
 #### **Task 2: Identifying Extreme Weather Events**
 - **Objective**: Identify locations that experienced extreme weather events.
